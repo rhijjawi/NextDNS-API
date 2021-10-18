@@ -36,8 +36,6 @@
 
 ## About The Project
 
-![Screen Shot](images/screenshot.png)
-
 I was getting increasingly frustrated with NextDNS's lack of API. I wanted to manage things on the fly. So, I did the most logical thing. I built a python script (library-to-be) to control my NextDNS account. I decided to make it public because why not?
 
 ## Built With
@@ -46,42 +44,33 @@ Built using Python:
 - Requests library 
 
 
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
 
-* npm
+* requests
 
 ```sh
-npm install npm@latest -g
+pip install requests
 ```
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. pip install nextdnsapi
 
-2. Clone the repo
+2. Open your IDE
 
-```sh
-git clone https://github.com/your_username_/Project-Name.git
+3. Import library
+```py
+from nextdnsapi.api import *
+```
+or
+```py
+from nextdnsapi import api
+from api import *
 ```
 
-3. Install NPM packages
-
-```sh
-npm install
-```
-
-4. Enter your API in `config.js`
-
-```JS
-const API_KEY = 'ENTER YOUR API';
-```
+4. Check [Github](https://github.com/rhijjawi/NextDNS-API) for Usage
 
 ## Usage
 
