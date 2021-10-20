@@ -50,13 +50,12 @@ This is an example of how to list things you need to use the software and how to
 
 * requests
 
-```
-pip install requests
-```
+
 
 **Installation**
 
-1. pip install nextdnsapi
+1. **```pip install nextdnsapi```**
+
 2. Open your IDE
 3. Import library
 
