@@ -1,15 +1,23 @@
-# README
+<br/>
+<p align="center">
+  <a href="https://github.com/rhijjawi/NextDNS-API">
+    <img src="https://nextdns.io/favicon.ico" alt="Logo" width="80" height="80">
+  </a>
 
+  <h3 align="center">NextDNS-API</h3>
 
-[![Logo](https://nextdns.io/favicon.ico)](https://github.com/rhijjawi/NextDNS-API)
-
-#### NextDNS-API
-
-An awesome way to interface with your NextDNS account - via Python!\
-\
-[**Explore the docs »**](https://github.com/rhijjawi/NextDNS-API)\
-\
-[Report Bug](https://github.com/rhijjawi/NextDNS-API/issues) . [Request Feature](https://github.com/rhijjawi/NextDNS-API/issues)
+  <p align="center">
+    An awesome way to interface with your NextDNS account - via Python!
+    <br/>
+    <br/>
+    <a href="https://ramzihijjawi.gitbook.io/nextdns-api/"><strong>Explore the docs »</strong></a>
+    <br/>
+    <br/>
+    <a href="https://github.com/rhijjawi/NextDNS-API/issues">Report Bug</a>
+    .
+    <a href="https://github.com/rhijjawi/NextDNS-API/issues">Request Feature</a>
+  </p>
+</p>
 
 ![Contributors](https://img.shields.io/github/contributors/rhijjawi/NextDNS-API?color=dark-green) ![Issues](https://img.shields.io/github/issues/rhijjawi/NextDNS-API) ![License](https://img.shields.io/github/license/rhijjawi/NextDNS-API)
 
