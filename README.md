@@ -1,7 +1,5 @@
 # README
 
-\
-
 
 [![Logo](https://nextdns.io/favicon.ico)](https://github.com/rhijjawi/NextDNS-API)
 
