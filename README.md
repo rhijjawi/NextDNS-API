@@ -80,9 +80,15 @@ Usage is very easy, so I won't bother to go into the intricacies of the library,
 
 ```python
 header = account.login("example@example.com", "password123")
-#This command logs into NextDNS for you and stores authentication in the variable header.
-print(account.list(header))
-#[{'id': 'd46a5b', 'name': 'Config 1'}, {'id': '837xh82', 'name': 'other one'}]
+
+account.login(email, password)
+    #This command logs into NextDNS for you and stores authentication in the variable header.
+    Example: account.login("example@example.com", "password123")
+    Response: Login credentials (headers and cookies) for NextDNS
+account.list(header)
+    #This command lists the configurations available on your NextDNS account
+    Example: account.list(header)
+    Response: #[{'id': 'd46a5b', 'name': 'Config 1'}, {'id': '837xh82', 'name': 'other one'}]
 ```
 
 **Settings**
