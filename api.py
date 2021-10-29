@@ -83,7 +83,7 @@ class ConfigNotFound(Exception):
         super().__init__(self.message)
 
 class account:
-    def login(email:str=None, password:str=None):
+    def login(email:str=None, password:str=None, otp:str=None):
         if (email == None or password == None) or (email == None and password == None):
             raise NoCredentials 
         else:
@@ -94,7 +94,7 @@ class account:
                 if login.text == "OK":
                     success = 1
                 elif login.text == """{"requiresCode":true}""":
-                    code = input("""Please enter 2FA Code: """)
+                    code = otp or input("""Please enter 2FA Code: """)
                     json = {"email":f"{email}","password":f"{password}","code":f"{code}"}
                     login = requests.post('https://api.nextdns.io/accounts/@login', headers=headers, json=json)
                 else:
