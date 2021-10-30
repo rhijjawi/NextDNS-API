@@ -77,7 +77,7 @@ from api import *
 Usage is very easy, so I won't bother to go into the intricacies of the library, but I will go over some basic info. This library closely imitates the website.
 
 **Account**
-
+For loggin in using 2FA, see [2FA.md](https://github.com/rhijjawi/NextDNS-API/blob/main/2FA.md)
 ```python
 header = account.login("example@example.com", "password123")
 
