@@ -122,6 +122,14 @@ settings.blockpage(bool, config, header)
     #This command tells NextDNS whether or not it should enable the block page.
     Example: settings.blockpage(False, "d46a5b", header)
     Response: "OK" if success, else ConfigNotFound
+settings.adddnsrewrite(domain, answer, config, header)
+    #This command tells NextDNS to create a DNS rewrite for the specific pairing.
+    Example: settings.adddnsrewrite("router.local", "192.168.1.1", "d46a5b", header)
+    Response: {"id":12345,"name":"router.local","answer":"192.168.1.1"} if success, else ConfigNotFound
+settings.deletednsrewrite(id, config, header)
+    #This command tells NextDNS to delete a DNS rewrite.
+    Example: settings.deletednsrewrite(12345, "d46a5b", header)
+    Response: "OK" if success, else ConfigNotFound
 settings.updatelinkedip(config,header)
     #This command tells update the linked IP on NextDNS to your current IP.
     Example: settings.updatelinkedip(True, "d46a5b", header)
