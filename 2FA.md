@@ -10,7 +10,7 @@
 from nextdnsapi.api import *
 import pyotp
 
-totp = pyotp.TOTP(base)
+totp = pyotp.TOTP(qrbase)
 totp_code = totp.now()
 print(totp_code)
 header = account.login("user@example.com", "password123", totp_code)```
