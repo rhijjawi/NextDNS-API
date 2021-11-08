@@ -1,4 +1,3 @@
-<br/>
 <p align="center">
   <a href="https://github.com/rhijjawi/NextDNS-API">
     <img src="https://nextdns.io/favicon.ico" alt="Logo" width="80" height="80">

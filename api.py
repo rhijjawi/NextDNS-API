@@ -518,7 +518,6 @@ class allowlist:
             return settings.json()
     def add(domain, config, header):
         hex = domain.encode('utf-8').hex()
-        hex = f"hex:{hex}"
         put = requests.put(f"https://api.nextdns.io/configurations/{config}/allowlist/hex:{hex}", headers = header)
         if put.text == "Not Found":
             raise ConfigNotFound(config)

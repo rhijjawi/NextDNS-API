@@ -1,0 +1,12 @@
+
+build/lib/nextdnsapi/__init__.py
+build/lib/nextdnsapi/api.py
+dist/nextdnsapi-1.6.0-py3-none-any.whl
+nextdnsapi.egg-info/dependency_links.txt
+nextdnsapi.egg-info/PKG-INFO
+nextdnsapi.egg-info/SOURCES.txt
+nextdnsapi.egg-info/requires.txt
+nextdnsapi.egg-info/top_level.txt
+PypiUpload.bat
+setup.cfg
+setup.py
