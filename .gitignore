@@ -10,3 +10,4 @@ nextdnsapi.egg-info/top_level.txt
 PypiUpload.bat
 setup.cfg
 setup.py
+dist/nextdnsapi-1.7.0-py3-none-any.whl
