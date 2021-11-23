@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 setup(
     name='nextdnsapi',
     packages=find_packages(include=['nextdnsapi']),
-    version = '1.7.1',      # Start with a small number and increase it with every change you make
+    version = '1.7.2',      # Start with a small number and increase it with every change you make
     license='MIT',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
     description="I was getting increasingly frustrated with NextDNS's lack of API. I wanted to manage things on the fly. So, I did the most logical thing. I built a python script (library-to-be) to control my NextDNS account. I decided to make it public because why not?",
     author_email = 'erpihmisr@relay.firefox.com',      # Type in your E-Mail
