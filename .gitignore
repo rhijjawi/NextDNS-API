@@ -3,3 +3,4 @@ nextdnsapi.egg-info/
 PypiUpload.bat
 dist/nextdnsapi-1.7.0-py3-none-any.whl
 .DS_Store
+__pycache__/
