@@ -379,3 +379,4 @@ Distributed under the MIT License. See [LICENSE](LICENSE.md) for more informatio
 
 * [NextDNS - For making it almost too easy to interface with their control panel](https://www.nextdns.io)
 * [Ramzi Hijjawi](https://github.com/rhijjawi)
+* [Jin Kang](https://github.com/rhijjawi) - For helping fix build issues and reformmating the GitHub to be more user friendly
