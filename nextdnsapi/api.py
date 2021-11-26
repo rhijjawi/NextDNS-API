@@ -1,5 +1,6 @@
 import requests
 import json
+from json import JSONDecodeError
 
 nativetracking = ["sonos", "xiaomi", "apple", "windows", "huawei", "samsung", "alexa", "roku"]
 nativetrackinghex = ["736f6e6f73","7869616f6d69","6170706c65","77696e646f7773","687561776569","73616d73756e67","616c657861","726f6b75"]
@@ -529,7 +530,10 @@ class allowlist:
         if delete.text == "Not Found":
             raise ConfigNotFound(config)
         else:
-            return delete.json()
+            try:
+                return delete.json()
+            except JSONDecodeError:
+                return delete.text
 
 class analytics:
     def counter(config, header):
