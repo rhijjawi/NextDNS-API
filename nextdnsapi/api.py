@@ -109,6 +109,10 @@ class account:
         configs = configs.json()
         confs = configs['configurations']
         return confs
+    def month(header):
+        month = requests.get(f"https://api.nextdns.io/accounts/@me/usage", headers = header)
+        month = month.json()
+        return month
 
 class settings:
     def listsettings(config,header):

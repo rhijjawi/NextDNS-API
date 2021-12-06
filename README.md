@@ -89,6 +89,10 @@ account.list(header)
     #This command lists the configurations available on your NextDNS account
     Example: account.list(header)
     Response: #[{'id': 'd46a5b', 'name': 'Config 1'}, {'id': '837xh82', 'name': 'other one'}]
+account.month(header)
+    #This command returns the number of queries made in the current month
+    Example: account.month(header)
+    Response: {"monthlyQueries":44065}
 ```
 
 **Settings**
