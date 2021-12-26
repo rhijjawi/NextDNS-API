@@ -22,16 +22,23 @@
 
 #### Table Of Contents
 
-* [About the Project](./#about-the-project)
-* [Built With](./#built-with)
-* [Getting Started](./#getting-started)
-  * [Prerequisites](./#prerequisites)
-  * [Installation](./#installation)
-* [Usage](./#usage)
-* [Contributing](./#contributing)
-* [License](./#license)
-* [Authors](./#authors)
-* [Acknowledgements](./#acknowledgements)
+* [About the Project](#about-the-project)
+* [Built With](#built-with)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Usage](#usage)
+  * [Account](#account)
+  * [Settings](#settings)
+  * [Security](#security)
+  * [Privacy](#privacy)
+  * [Parental](#parental)
+  * [Denylist](#denylist)
+  * [Allowlist](#allowlist)
+  * [Analytics](#analytics)
+* [Contributing](#contributing)
+* [License](#license)
+* [Authors](#authors)
+* [Acknowledgements](#acknowledgements)
 
 #### About The Project
 
@@ -43,7 +50,7 @@ Built using Python:
 
 * Requests library
 
-**Prerequisites**
+##### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
 
@@ -51,7 +58,7 @@ This is an example of how to list things you need to use the software and how to
 
 
 
-**Installation**
+##### Installation
 
 1. **```pip install nextdnsapi```**
 
@@ -75,9 +82,9 @@ from api import *
 
 Usage is very easy, so I won't bother to go into the intricacies of the library, but I will go over some basic info. This library closely imitates the website.
 
-**Account**
+##### Account
 
-For logging in using 2FA, see [2FA.md](https://github.com/rhijjawi/NextDNS-API/blob/main/2FA.md)
+For logging in using 2FA, see [2FA.md](2FA.md)
 ```python
 header = account.login("example@example.com", "password123")
 
@@ -95,7 +102,7 @@ account.month(header)
     Response: {"monthlyQueries":44065}
 ```
 
-**Settings**
+##### Settings
 
 ```python
 settings.listsettings(config,header):
@@ -144,7 +151,7 @@ settings.delete(config, header)
     Response: "{Config ID} deleted" if success, else ConfigNotFound
 ```
 
-**Security**
+##### Security
 
 ```python
 security.list(config, header)
@@ -205,7 +212,7 @@ security.removetld(tld, config, header)
     Response: "{tld} unblocked" if success, else ConfigNotFound
 ```
 
-**Privacy**
+##### Privacy
 
 ```python
 privacy.list(config, header)
@@ -230,7 +237,7 @@ privacy.unblocknative(native, config, header):
     Response: "OK" if success, else ConfigNotFound
 ```
 
-**Parental**
+##### Parental
 
 ```python
 parental.list(config, header)
@@ -279,7 +286,7 @@ parental.unblocksite(site, config, header)
     Response: "OK" if success, else ConfigNotFound
 ```
 
-**Denylist**
+##### Denylist
 
 ```python
 denylist.list(config, header)
@@ -296,7 +303,7 @@ denylist.unblockdomain(domain, config, header)
     Response: "OK" if success else ConfigNotFound
 ```
 
-**Allowlist**
+##### Allowlist
 
 ```python
 allowlist.list(config, header)
@@ -313,7 +320,7 @@ allowlist.remove(domain, config, header)
     Response: "OK" if success else ConfigNotFound
 ```
 
-**Analytics**
+##### Analytics
 
 ```python
 analytics.counter(config, header)
@@ -363,7 +370,7 @@ Contributions are what make the open source community such an amazing place to b
 * Create individual PR for each suggestion.
 * Please also read through the [Code Of Conduct](CODE\_OF\_CONDUCT.md) before posting your first idea as well.
 
-**Creating A Pull Request**
+##### Creating A Pull Request
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)

@@ -1,0 +1,2838 @@
+{
+	"info": {
+		"_postman_id": "e28017f6-2442-41cd-a14e-dd94139168a0",
+		"name": "NextDNS API Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "List settings config",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/settings",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Setup",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/setup",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"setup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear logs",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/logs",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"logs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log domains (toggle)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"logging_disable_query\":true}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/settings",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Security",
+			"item": [
+				{
+					"name": "List security config",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/security",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"security"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Threat Intelligence Feeds",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"threatIntelligenceFeeds\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/security",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"security"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AI-Driven Threat Detection",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"aiThreatDetection\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/security",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"security"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Google Safe Browsing",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"googleSafeBrowsing\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/security",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"security"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cryptojacking Protection",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"cryptojacking\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/security",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"security"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DNS Rebinding Protection",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"dnsRebinding\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/security",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"security"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IDN Homograph Attacks Protection",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"homograph\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/security",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"security"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Typosquatting Protection",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"typosquatting\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/security",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"security"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DGA Protection",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"dga\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/security",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"security"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Block NRDs",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"nrd\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/security",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"security"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Block Parked Domains",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"parked\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/security",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"security"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Block CSAM",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"csam\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/security",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"security"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Privacy",
+			"item": [
+				{
+					"name": "List privacy config",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/privacy",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"privacy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Block Disguised Trackers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"blockDisguised\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/privacy",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"privacy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Block Native Trackers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/privacy/natives/{{hex}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"privacy",
+								"natives",
+								"{{hex}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unblock Native Trackers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/privacy/natives/{{hex}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"privacy",
+								"natives",
+								"{{hex}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Block/Allow Affiliate Links",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"allowAffiliate\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/privacy",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"privacy"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Parental",
+			"item": [
+				{
+					"name": "Categories",
+					"item": [
+						{
+							"name": "Block Porn",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "sid",
+										"value": "{{nextdns_sid}}",
+										"type": "text"
+									},
+									{
+										"key": "pst",
+										"value": "{{nextdns_pst}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol/categories/hex:706f726e",
+									"protocol": "https",
+									"host": [
+										"api",
+										"nextdns",
+										"io"
+									],
+									"path": [
+										"configurations",
+										"{{uuid}}",
+										"parentalcontrol",
+										"categories",
+										"hex:706f726e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unblock Porn",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "sid",
+										"value": "{{nextdns_sid}}",
+										"type": "text"
+									},
+									{
+										"key": "pst",
+										"value": "{{nextdns_pst}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol/categories/hex:706f726e",
+									"protocol": "https",
+									"host": [
+										"api",
+										"nextdns",
+										"io"
+									],
+									"path": [
+										"configurations",
+										"{{uuid}}",
+										"parentalcontrol",
+										"categories",
+										"hex:706f726e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Block Gambling",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "sid",
+										"value": "{{nextdns_sid}}",
+										"type": "text"
+									},
+									{
+										"key": "pst",
+										"value": "{{nextdns_pst}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol/categories/hex:67616d626c696e67",
+									"protocol": "https",
+									"host": [
+										"api",
+										"nextdns",
+										"io"
+									],
+									"path": [
+										"configurations",
+										"{{uuid}}",
+										"parentalcontrol",
+										"categories",
+										"hex:67616d626c696e67"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unblock Gambling",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "sid",
+										"value": "{{nextdns_sid}}",
+										"type": "text"
+									},
+									{
+										"key": "pst",
+										"value": "{{nextdns_pst}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol/categories/hex:67616d626c696e67",
+									"protocol": "https",
+									"host": [
+										"api",
+										"nextdns",
+										"io"
+									],
+									"path": [
+										"configurations",
+										"{{uuid}}",
+										"parentalcontrol",
+										"categories",
+										"hex:67616d626c696e67"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Block Dating",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "sid",
+										"value": "{{nextdns_sid}}",
+										"type": "text"
+									},
+									{
+										"key": "pst",
+										"value": "{{nextdns_pst}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol/categories/hex:646174696e67",
+									"protocol": "https",
+									"host": [
+										"api",
+										"nextdns",
+										"io"
+									],
+									"path": [
+										"configurations",
+										"{{uuid}}",
+										"parentalcontrol",
+										"categories",
+										"hex:646174696e67"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unblock Dating",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "sid",
+										"value": "{{nextdns_sid}}",
+										"type": "text"
+									},
+									{
+										"key": "pst",
+										"value": "{{nextdns_pst}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol/categories/hex:646174696e67",
+									"protocol": "https",
+									"host": [
+										"api",
+										"nextdns",
+										"io"
+									],
+									"path": [
+										"configurations",
+										"{{uuid}}",
+										"parentalcontrol",
+										"categories",
+										"hex:646174696e67"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Block Piracy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "sid",
+										"value": "{{nextdns_sid}}",
+										"type": "text"
+									},
+									{
+										"key": "pst",
+										"value": "{{nextdns_pst}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol/categories/hex:706972616379",
+									"protocol": "https",
+									"host": [
+										"api",
+										"nextdns",
+										"io"
+									],
+									"path": [
+										"configurations",
+										"{{uuid}}",
+										"parentalcontrol",
+										"categories",
+										"hex:706972616379"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unblock Piracy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "sid",
+										"value": "{{nextdns_sid}}",
+										"type": "text"
+									},
+									{
+										"key": "pst",
+										"value": "{{nextdns_pst}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol/categories/hex:706972616379",
+									"protocol": "https",
+									"host": [
+										"api",
+										"nextdns",
+										"io"
+									],
+									"path": [
+										"configurations",
+										"{{uuid}}",
+										"parentalcontrol",
+										"categories",
+										"hex:706972616379"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Block Social Networks",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "sid",
+										"value": "{{nextdns_sid}}",
+										"type": "text"
+									},
+									{
+										"key": "pst",
+										"value": "{{nextdns_pst}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol/categories/hex:736f6369616c2d6e6574776f726b73",
+									"protocol": "https",
+									"host": [
+										"api",
+										"nextdns",
+										"io"
+									],
+									"path": [
+										"configurations",
+										"{{uuid}}",
+										"parentalcontrol",
+										"categories",
+										"hex:736f6369616c2d6e6574776f726b73"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unblock Social Networks",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "sid",
+										"value": "{{nextdns_sid}}",
+										"type": "text"
+									},
+									{
+										"key": "pst",
+										"value": "{{nextdns_pst}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol/categories/hex:736f6369616c2d6e6574776f726b73",
+									"protocol": "https",
+									"host": [
+										"api",
+										"nextdns",
+										"io"
+									],
+									"path": [
+										"configurations",
+										"{{uuid}}",
+										"parentalcontrol",
+										"categories",
+										"hex:736f6369616c2d6e6574776f726b73"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Safesearch Mode",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"safeSearch\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"parentalcontrol"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "YouTube Restricted Mode",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"youtubeRestrictedMode\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"parentalcontrol"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Block Bypass Mode",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// var bool_values = [true, false];",
+									"pm.globals.set('value',  1-pm.globals.get('value'));",
+									"// console.log('DEBUG:', pm.globals.get('value'));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"blockBypass\":{{value}}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"parentalcontrol"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Block a Website",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol/services/hex:{{sitename}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"parentalcontrol",
+								"services",
+								"hex:{{sitename}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unblock a Website",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol/services/hex:{{sitename}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"parentalcontrol",
+								"services",
+								"hex:{{sitename}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List parental config",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/parentalcontrol",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"parentalcontrol"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deny List",
+			"item": [
+				{
+					"name": "Top Domains Blocked",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{nextdns_uuid}}/analytics/top_domains/blocked",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{nextdns_uuid}}",
+								"analytics",
+								"top_domains",
+								"blocked"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Block Domain",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/denylist/hex:{{hex}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"denylist",
+								"hex:{{hex}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unblock Domain",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/denylist/hex:{{hex}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"denylist",
+								"hex:{{hex}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Deny config",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/denylist",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"denylist"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Allow List",
+			"item": [
+				{
+					"name": "Add Domain (allow)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/allowlist/hex:{hex}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"allowlist",
+								"hex:{hex}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Domain (disallow)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/allowlist/hex:{hex}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"allowlist",
+								"hex:{hex}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Allow config",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/allowlist",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"allowlist"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Analytics",
+			"item": [
+				{
+					"name": "Analytics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/analytics/counters",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"analytics",
+								"counters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Top Resolved Domains",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/analytics/top_domains/resolved",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"analytics",
+								"top_domains",
+								"resolved"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Top Blocked Domains",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/analytics/top_domains/blocked",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"analytics",
+								"top_domains",
+								"blocked"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Top Lists",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/analytics/top_lists",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"analytics",
+								"top_lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Top Devices",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/analytics/top_devices",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"analytics",
+								"top_devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Top Client IPs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/analytics/top_client_ips",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"analytics",
+								"top_client_ips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Top Root Domains",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/analytics/top_root_domains",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"analytics",
+								"top_root_domains"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GAFAM Dominance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/analytics/gafam",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"analytics",
+								"gafam"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Top Countries",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "pst",
+								"value": "{{nextdns_pst}}",
+								"type": "text"
+							},
+							{
+								"key": "sid",
+								"value": "{{nextdns_sid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nextdns.io/configurations/{{uuid}}/analytics/traffic_destination_countries",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nextdns",
+								"io"
+							],
+							"path": [
+								"configurations",
+								"{{uuid}}",
+								"analytics",
+								"traffic_destination_countries"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Request API Access Token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set('nextdns_sid', pm.cookies.get('sid'));",
+							"pm.environment.set('nextdns_pst', pm.cookies.get('pst'));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept-encoding": true,
+					"user-agent": true,
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://my.nextdns.io/",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "NextDNS Prometheus Exporter",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.nextdns.io/accounts/@login",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nextdns",
+						"io"
+					],
+					"path": [
+						"accounts",
+						"@login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
