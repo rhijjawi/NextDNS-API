@@ -61,6 +61,11 @@ class NoCredentials(Exception):
     def __init__(self, message="No credentials in account.login() function. Login using account.login(email,password)"):
         self.message = message
         super().__init__(self.message)
+        
+class NewAccount(Exception):
+    def __init__(self, message="No credentials in account.signup() function. Login using account.signup(email,password)"):
+        self.message = message
+        super().__init__(self.message)
 
 class FailedCredentials(Exception):
     def __init__(self, error):
@@ -84,6 +89,16 @@ class ConfigNotFound(Exception):
         super().__init__(self.message)
 
 class account:
+    def signup(email:str=None, password:str=None):
+        if (email == None or password == None) or (email == None and password == None):
+            raise NewAccount 
+        else:
+            json = {"email":f"{email}","password":f"{password}"}
+            signup = requests.post('https://api.nextdns.io/accounts/@login', headers=headers, json=json)
+                if signup.text == "OK":
+                    return "OK"
+                else:
+                    return signup.text
     def login(email:str=None, password:str=None, otp:str=None):
         if (email == None or password == None) or (email == None and password == None):
             raise NoCredentials 
