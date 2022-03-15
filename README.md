@@ -18,7 +18,7 @@
   </p>
 </p>
 
-![Contributors](https://img.shields.io/github/contributors/rhijjawi/NextDNS-API?color=dark-green) ![Issues](https://img.shields.io/github/issues/rhijjawi/NextDNS-API) ![License](https://img.shields.io/github/license/rhijjawi/NextDNS-API)
+![Contributors](https://img.shields.io/github/contributors/rhijjawi/NextDNS-API?color=dark-green) ![Issues](https://img.shields.io/github/issues/rhijjawi/NextDNS-API) ![License](https://img.shields.io/github/license/rhijjawi/NextDNS-API) [![Downloads](https://pepy.tech/badge/nextdnsapi)](https://pepy.tech/project/nextdnsapi) [![Downloads](https://pepy.tech/badge/nextdnsapi/month)](https://pepy.tech/project/nextdnsapi) [![Downloads](https://pepy.tech/badge/nextdnsapi/week)](https://pepy.tech/project/nextdnsapi)
 
 #### Table Of Contents
 
