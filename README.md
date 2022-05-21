@@ -113,6 +113,10 @@ settings.setup(config,header)
     #This command returns the setup information the provided config.
     Example: settings.setup("d46a5b", header)
     Response: {'id': 'd46a5b', 'fingerprint': 'fpd7527ea9b798****', 'ipv4': [], 'ipv6': ['2a07:****::**:6a5a', '2a07:****::**:6a5a'], 'linkedIpDNSServers': ['45.90.**.105', '45.90.**.105'], 'ddnsHostname': '****.ddns.net', 'linkedIpUpdateToken': 'd1aa9fe86e9c****', 'linkedIp': '41.210.***.69', 'dnsStamp': 'sdns://AgE*********CjQ1LjkwLjI4LjAADmRucy5uZXh0ZG5zLmlvBy9kNDZhNWE'}
+settings.downloadlogs(config,header)
+    #This command downloads the DNS logs for the provided config to OS downloads folder and returns file name.
+    Example: settings.downloadlogs("d46a5b", header)
+    Response: "d46a5b-2022-05-21T11 30 26.867Z.csv" if success, else ConfigNotFound
 settings.clearlogs(config,header)
     #This command clears the DNS logs for the provided config.
     Example: settings.clearlogs("d46a5b", header)

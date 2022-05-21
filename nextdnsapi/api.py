@@ -1,6 +1,8 @@
 import requests
 import json
 from json import JSONDecodeError
+import os
+from pathlib import Path
 
 nativetracking = ["sonos", "xiaomi", "apple", "windows", "huawei", "samsung", "alexa", "roku"]
 nativetrackinghex = ["736f6e6f73","7869616f6d69","6170706c65","77696e646f7773","687561776569","73616d73756e67","616c657861","726f6b75"]
@@ -144,6 +146,22 @@ class settings:
         else:
             setup = setup.json()
             return setup
+    def downloadlogs(config, header):
+        timestamp = requests.get(f"https://api.nextdns.io/configurations/{config}/logs/export", headers = header)
+        if timestamp.text == "Not Found":
+            raise ConfigNotFound(config)
+        else:
+            downloads_path = str(Path.home() / "Downloads")         
+            timestamp = timestamp.json()
+            timelog = str(timestamp['timestamp'])
+            fname = config + '-' + timelog.replace(':',' ') + '.csv'   #official nextdns nomenclature
+            file_path = os.path.join(downloads_path, fname)
+            print(file_path)
+            file = open(file_path,"wb")
+            r = requests.get(f"https://api.nextdns.io/configurations/{config}/logs/download/{timelog}", headers = header, stream = True)
+            for chunk in r.iter_content(chunk_size=1024):
+                file.write(chunk)
+            return fname
     def clearlogs(config,header):
         logs = requests.delete(f"https://api.nextdns.io/configurations/{config}/logs", headers = header)
         if logs.text == "Not Found":
