@@ -156,7 +156,6 @@ class settings:
             timelog = str(timestamp['timestamp'])
             fname = config + '-' + timelog.replace(':',' ') + '.csv'   #official nextdns nomenclature
             file_path = os.path.join(downloads_path, fname)
-            print(file_path)
             file = open(file_path,"wb")
             r = requests.get(f"https://api.nextdns.io/configurations/{config}/logs/download/{timelog}", headers = header, stream = True)
             for chunk in r.iter_content(chunk_size=1024):
