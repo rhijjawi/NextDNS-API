@@ -110,40 +110,37 @@ class account:
             else:
                 return signup.text
 
-
-def login(email: str = None, password: str = None, otp: str = None):
-    if (email == None or password == None) or (email == None and password == None):
-        raise NoCredentials
-    else:
-        success = False
-        json = {"email": f"{email}", "password": f"{password}"}
-        while success == False:
-            login = requests.post('https://api.nextdns.io/accounts/@login', headers=headers, json=json)
-            if login.text == "OK":
-                success = 1
-            elif login.text == """{"requiresCode":true}""":
-                code = otp or input("""Please enter 2FA Code: """)
-                json = {"email": f"{email}", "password": f"{password}", "code": f"{code}"}
+    def login(email: str = None, password: str = None, otp: str = None):
+        if (email == None or password == None) or (email == None and password == None):
+            raise NoCredentials
+        else:
+            success = False
+            json = {"email": f"{email}", "password": f"{password}"}
+            while success == False:
                 login = requests.post('https://api.nextdns.io/accounts/@login', headers=headers, json=json)
-            else:
-                raise FailedCredentials(login.text)
-        c = login.cookies.get_dict()
-        c = c['pst']
-        headers['Cookie'] = f'pst={c}'
-    return headers
+                if login.text == "OK":
+                    success = 1
+                elif login.text == """{"requiresCode":true}""":
+                    code = otp or input("""Please enter 2FA Code: """)
+                    json = {"email": f"{email}", "password": f"{password}", "code": f"{code}"}
+                    login = requests.post('https://api.nextdns.io/accounts/@login', headers=headers, json=json)
+                else:
+                    raise FailedCredentials(login.text)
+            c = login.cookies.get_dict()
+            c = c['pst']
+            headers['Cookie'] = f'pst={c}'
+        return headers
 
+    def list(header):
+        configs = requests.get("https://api.nextdns.io/accounts/@me?withConfigurations=true", headers=header)
+        configs = configs.json()
+        confs = configs['configurations']
+        return confs
 
-def list(header):
-    configs = requests.get("https://api.nextdns.io/accounts/@me?withConfigurations=true", headers=header)
-    configs = configs.json()
-    confs = configs['configurations']
-    return confs
-
-
-def month(header):
-    month = requests.get(f"https://api.nextdns.io/accounts/@me/usage", headers=header)
-    month = month.json()
-    return month
+    def month(header):
+        month = requests.get(f"https://api.nextdns.io/accounts/@me/usage", headers=header)
+        month = month.json()
+        return month
 
 
 class settings:
