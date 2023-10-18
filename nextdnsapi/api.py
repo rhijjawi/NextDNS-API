@@ -119,59 +119,57 @@ class ConfigNotFound(Exception):
 
 
 class account:
-    def signup(email: str = None, password: str = None):
-        if (email == None or password == None) or (email == None and password == None):
+    @staticmethod
+    def signup(email: str = "", password: str = ""):
+        if not email or not password:
             raise NewAccount
-        else:
-            json = {"email": f"{email}", "password": f"{password}"}
-            signup = requests.post(
-                "https://api.nextdns.io/accounts/@login", headers=headers, json=json
-            )
-            if signup.text == "OK":
-                return "OK"
-            else:
-                return signup.text
 
-    def login(email: str = None, password: str = None, otp: str = None):
-        if (email == None or password == None) or (email == None and password == None):
+        json_data = {"email": email, "password": password}
+        signup = requests.post(
+            "https://api.nextdns.io/accounts/@login", headers=headers, json=json_data
+        )
+        return "OK" if signup.text == "OK" else signup.text
+
+    @staticmethod
+    def login(email: str = "", password: str = "", otp: str = ""):
+        if not email or not password:
             raise NoCredentials
-        else:
-            success = False
-            json = {"email": f"{email}", "password": f"{password}"}
-            while success == False:
+
+        success = False
+        json_data = {"email": email, "password": password}
+        while not success:
+            login = requests.post(
+                "https://api.nextdns.io/accounts/@login",
+                headers=headers,
+                json=json_data,
+            )
+            if login.text == "OK":
+                success = True
+            elif login.text == """{"requiresCode":true}""":
+                code = otp or input("Please enter 2FA Code: ")
+                json_data = {"email": email, "password": password, "code": code}
                 login = requests.post(
-                    "https://api.nextdns.io/accounts/@login", headers=headers, json=json
+                    "https://api.nextdns.io/accounts/@login",
+                    headers=headers,
+                    json=json_data,
                 )
-                if login.text == "OK":
-                    success = 1
-                elif login.text == """{"requiresCode":true}""":
-                    code = otp or input("""Please enter 2FA Code: """)
-                    json = {
-                        "email": f"{email}",
-                        "password": f"{password}",
-                        "code": f"{code}",
-                    }
-                    login = requests.post(
-                        "https://api.nextdns.io/accounts/@login",
-                        headers=headers,
-                        json=json,
-                    )
-                else:
-                    raise FailedCredentials(login.text)
-            c = login.cookies.get_dict()
-            c = c["pst"]
-            headers["Cookie"] = f"pst={c}"
+            else:
+                raise FailedCredentials(login.text)
+        c = login.cookies.get_dict()
+        c = c["pst"]
+        headers["Cookie"] = f"pst={c}"
         return headers
 
+    @staticmethod
     def list(header):
         configs = requests.get(
             "https://api.nextdns.io/accounts/@me?withConfigurations=true",
             headers=header,
         )
         configs = configs.json()
-        confs = configs["configurations"]
-        return confs
+        return configs["configurations"]
 
+    @staticmethod
     def month(header):
         month = requests.get(
             "https://api.nextdns.io/accounts/@me/usage", headers=header
@@ -181,16 +179,17 @@ class account:
 
 
 class settings:
+    @staticmethod
     def listsettings(config, header):
-        list = requests.get(
+        response = requests.get(
             f"https://api.nextdns.io/profiles/{config}/settings", headers=header
         )
-        if list.text.__contains__("notFound"):
+        if response.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            list = list.json()
-            return list
+        response = response.json()
+        return response
 
+    @staticmethod
     def setup(config, header):
         setup = requests.get(
             f"https://api.nextdns.io/profiles/{config}/setup", headers=header
@@ -198,13 +197,13 @@ class settings:
         print(setup.text)
         if setup.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            setup = setup.json()
-            return setup
+        setup = setup.json()
+        return setup
 
+    @staticmethod
     def downloadlogs(config, header):
         downloads_path = str(Path.home() / "Downloads")
-        fname = config + ".csv"  # official nextdns nomenclature
+        fname = f"{config}.csv"
         file_path = os.path.join(downloads_path, fname)
         file = open(file_path, "wb")
         r = requests.get(
@@ -216,6 +215,7 @@ class settings:
             file.write(chunk)
         return fname
 
+    @staticmethod
     def clearlogs(config, header):
         logs = requests.delete(
             f"https://api.nextdns.io/profiles/{config}/logs", headers=header
@@ -225,6 +225,7 @@ class settings:
         else:
             return logs.text
 
+    @staticmethod
     def rename(name, config, header):
         nname = {"name": name}
         rename = requests.patch(
@@ -235,6 +236,7 @@ class settings:
         else:
             return f"Config renamed to {name}"
 
+    @staticmethod
     def delete(config, header):
         dconfig = requests.delete(
             f"https://api.nextdns.io/profiles/{config}", headers=header
@@ -244,12 +246,10 @@ class settings:
         else:
             return f"Config {config} deleted"
 
-    def logclientips(bool, config, header):
-        if bool == True:
-            bool = False
-        else:
-            bool = True
-        logcips = {"ip": bool}
+    @staticmethod
+    def logclientips(ip, config, header):
+        ip = ip is not True
+        logcips = {"ip": ip}
         logcips = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/settings/logs/drop",
             headers=header,
@@ -260,12 +260,10 @@ class settings:
         else:
             return logcips.text
 
-    def logdomains(bool, config, header):
-        if bool == True:
-            bool = False
-        else:
-            bool = True
-        logdom = {"domain": bool}
+    @staticmethod
+    def logdomains(domain, config, header):
+        domain = domain is not True
+        logdom = {"domain": domain}
         logdom = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/settings/logs/drop",
             headers=header,
@@ -276,8 +274,9 @@ class settings:
         else:
             return logdom.text
 
-    def blockpage(bool, config, header):
-        bp = {"enabled": bool}
+    @staticmethod
+    def blockpage(enabled, config, header):
+        bp = {"enabled": enabled}
         bp = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/settings/blockPage",
             headers=header,
@@ -288,6 +287,7 @@ class settings:
         else:
             return bp.text
 
+    @staticmethod
     def updatelinkedip(config, header):
         r = settings.setup(config, header)
         updatetoken = r["data"]["linkedIp"]["updateToken"]
@@ -297,18 +297,19 @@ class settings:
 
 
 class security:
+    @staticmethod
     def list(config, header):
         settings = requests.get(
             f"https://api.nextdns.io/profiles/{config}/security", headers=header
         )
         if settings.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            settings = settings.json()
-            return settings
+        settings = settings.json()
+        return settings
 
-    def threatintelligencefeeds(bool, config, header):
-        setting = {"threatIntelligenceFeeds": bool}
+    @staticmethod
+    def threatintelligencefeeds(threatIntelligenceFeeds, config, header):
+        setting = {"threatIntelligenceFeeds": threatIntelligenceFeeds}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/security",
             headers=header,
@@ -319,8 +320,9 @@ class security:
         else:
             return setting.text
 
-    def aidetection(bool, config, header):
-        setting = {"aiThreatDetection": bool}
+    @staticmethod
+    def aidetection(aiThreatDetection, config, header):
+        setting = {"aiThreatDetection": aiThreatDetection}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/security",
             headers=header,
@@ -331,8 +333,9 @@ class security:
         else:
             return setting.text
 
-    def safebrowsing(bool, config, header):
-        setting = {"googleSafeBrowsing": bool}
+    @staticmethod
+    def safebrowsing(googleSafeBrowsing, config, header):
+        setting = {"googleSafeBrowsing": googleSafeBrowsing}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/security",
             headers=header,
@@ -343,8 +346,9 @@ class security:
         else:
             return setting.text
 
-    def cryptojacking(bool, config, header):
-        setting = {"cryptojacking": bool}
+    @staticmethod
+    def cryptojacking(cryptojacking, config, header):
+        setting = {"cryptojacking": cryptojacking}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/security",
             headers=header,
@@ -355,8 +359,9 @@ class security:
         else:
             return setting.text
 
-    def dnsrebinding(bool, config, header):
-        setting = {"dnsRebinding": bool}
+    @staticmethod
+    def dnsrebinding(dnsRebinding, config, header):
+        setting = {"dnsRebinding": dnsRebinding}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/security",
             headers=header,
@@ -367,8 +372,9 @@ class security:
         else:
             return setting.text
 
-    def homograph(bool, config, header):
-        setting = {"idnHomographs": bool}
+    @staticmethod
+    def homograph(idnHomographs, config, header):
+        setting = {"idnHomographs": idnHomographs}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/security",
             headers=header,
@@ -379,8 +385,9 @@ class security:
         else:
             return setting.text
 
-    def typosquatting(bool, config, header):
-        setting = {"typosquatting": bool}
+    @staticmethod
+    def typosquatting(typosquatting, config, header):
+        setting = {"typosquatting": typosquatting}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/security",
             headers=header,
@@ -391,8 +398,9 @@ class security:
         else:
             return setting.text
 
-    def dga(bool, config, header):
-        setting = {"dga": bool}
+    @staticmethod
+    def dga(dga, config, header):
+        setting = {"dga": dga}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/security",
             headers=header,
@@ -403,8 +411,9 @@ class security:
         else:
             return setting.text
 
-    def newdomains(bool, config, header):
-        setting = {"nrd": bool}
+    @staticmethod
+    def newdomains(nrd, config, header):
+        setting = {"nrd": nrd}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/security",
             headers=header,
@@ -415,8 +424,9 @@ class security:
         else:
             return setting.text
 
-    def dyndns(bool, config, header):
-        setting = {"ddns": bool}
+    @staticmethod
+    def dyndns(ddns, config, header):
+        setting = {"ddns": ddns}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/security",
             headers=header,
@@ -427,8 +437,9 @@ class security:
         else:
             return setting.text
 
-    def parked(bool, config, header):
-        setting = {"parking": bool}
+    @staticmethod
+    def parked(parking, config, header):
+        setting = {"parking": parking}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/security",
             headers=header,
@@ -439,8 +450,9 @@ class security:
         else:
             return setting.text
 
-    def csam(bool, config, header):
-        setting = {"csam": bool}
+    @staticmethod
+    def csam(csam, config, header):
+        setting = {"csam": csam}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/security",
             headers=header,
@@ -451,6 +463,7 @@ class security:
         else:
             return setting.text
 
+    @staticmethod
     def addtld(tld, config, header):
         data = {"id": tld}
         put = requests.post(
@@ -463,6 +476,7 @@ class security:
         else:
             return put.text
 
+    @staticmethod
     def removetld(tld, config, header):
         remove = requests.delete(
             f"https://api.nextdns.io/profiles/{config}/security/tlds/{tld}",
@@ -475,18 +489,19 @@ class security:
 
 
 class privacy:
+    @staticmethod
     def list(config, header):
         settings = requests.get(
             f"https://api.nextdns.io/profiles/{config}/privacy", headers=header
         )
         if settings.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            settings = settings.json()
-            return settings
+        settings = settings.json()
+        return settings
 
-    def blockdisguised(bool, config, header):
-        setting = {"disguisedTrackers": bool}
+    @staticmethod
+    def blockdisguised(disguisedTrackers, config, header):
+        setting = {"disguisedTrackers": disguisedTrackers}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/privacy",
             headers=header,
@@ -497,8 +512,9 @@ class privacy:
         else:
             return setting.text
 
-    def blockaffiliate(bool, config, header):
-        setting = {"allowAffiliate": bool}
+    @staticmethod
+    def blockaffiliate(allowAffiliate, config, header):
+        setting = {"allowAffiliate": allowAffiliate}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/privacy",
             headers=header,
@@ -509,6 +525,7 @@ class privacy:
         else:
             return setting.text
 
+    @staticmethod
     def blocknative(native, config, header):
         if native in nativetracking:
             data = {"id": native}
@@ -525,6 +542,7 @@ class privacy:
             print("Allowed: ", nativetracking)
             return f"{native} is no valid parameter!"
 
+    @staticmethod
     def unblocknative(native, config, header):
         if native in nativetracking:
             delete = requests.delete(
@@ -541,19 +559,21 @@ class privacy:
 
 
 class parental:
+    @staticmethod
+    # TODO: Change the method name from `list` to something different
     def list(config, header):
         settings = requests.get(
             f"https://api.nextdns.io/profiles/{config}/parentalcontrol", headers=header
         )
         if settings.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            settings = settings.json()
-            return settings
+        settings = settings.json()
+        return settings
 
-    def porn(bool, config, header):
-        if bool:
-            data = {"id": "porn", "active": bool}
+    @staticmethod
+    def porn(active, config, header):
+        if active:
+            data = {"id": "porn", "active": active}
             setting = requests.post(
                 f"https://api.nextdns.io/profiles/{config}/parentalcontrol/categories",
                 headers=header,
@@ -570,9 +590,10 @@ class parental:
         else:
             return setting.text
 
-    def gambling(bool, config, header):
+    @staticmethod
+    def gambling(active, config, header):
         if bool:
-            data = {"id": "gambling", "active": bool}
+            data = {"id": "gambling", "active": active}
             setting = requests.post(
                 f"https://api.nextdns.io/profiles/{config}/parentalcontrol/categories",
                 headers=header,
@@ -588,9 +609,10 @@ class parental:
         else:
             return setting.text
 
-    def dating(bool, config, header):
+    @staticmethod
+    def dating(active, config, header):
         if bool:
-            data = {"id": "dating", "active": bool}
+            data = {"id": "dating", "active": active}
             setting = requests.post(
                 f"https://api.nextdns.io/profiles/{config}/parentalcontrol/categories",
                 headers=header,
@@ -606,9 +628,10 @@ class parental:
         else:
             return setting.text
 
-    def piracy(bool, config, header):
+    @staticmethod
+    def piracy(active, config, header):
         if bool:
-            data = {"id": "piracy", "active": bool}
+            data = {"id": "piracy", "active": active}
             setting = requests.post(
                 f"https://api.nextdns.io/profiles/{config}/parentalcontrol/categories",
                 headers=header,
@@ -624,9 +647,10 @@ class parental:
         else:
             return setting.text
 
-    def socialnetworks(bool, config, header):
+    @staticmethod
+    def socialnetworks(active, config, header):
         if bool:
-            data = {"id": "social-networks", "active": bool}
+            data = {"id": "social-networks", "active": active}
             setting = requests.post(
                 f"https://api.nextdns.io/profiles/{config}/parentalcontrol/categories",
                 headers=header,
@@ -642,8 +666,9 @@ class parental:
         else:
             return setting.text
 
-    def safesearch(bool, config, header):
-        setting = {"safeSearch": bool}
+    @staticmethod
+    def safesearch(safeSearch, config, header):
+        setting = {"safeSearch": safeSearch}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/parentalcontrol",
             headers=header,
@@ -654,8 +679,9 @@ class parental:
         else:
             return setting.text
 
-    def youtubeRestrictedMode(bool, config, header):
-        setting = {"youtubeRestrictedMode": bool}
+    @staticmethod
+    def youtubeRestrictedMode(youtubeRestrictedMode, config, header):
+        setting = {"youtubeRestrictedMode": youtubeRestrictedMode}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/parentalcontrol",
             headers=header,
@@ -666,8 +692,9 @@ class parental:
         else:
             return setting.text
 
-    def blockbypass(bool, config, header):
-        setting = {"blockBypass": bool}
+    @staticmethod
+    def blockbypass(blockBypass, config, header):
+        setting = {"blockBypass": blockBypass}
         setting = requests.patch(
             f"https://api.nextdns.io/profiles/{config}/parentalcontrol",
             headers=header,
@@ -678,6 +705,7 @@ class parental:
         else:
             return setting.text
 
+    @staticmethod
     def blocksite(site, config, header):
         if site in blocksites:
             data = {"id": site, "active": True}
@@ -694,6 +722,7 @@ class parental:
             print("Allowed: ", blocksites)
             return f"{site} is no valid parameter!"
 
+    @staticmethod
     def unblocksite(site, config, header):
         if site in blocksites:
             delete = requests.delete(
@@ -710,16 +739,17 @@ class parental:
 
 
 class denylist:
+    @staticmethod
     def list(config, header):
-        list = requests.get(
+        response = requests.get(
             f"https://api.nextdns.io/profiles/{config}/denylist", headers=header
         )
-        if list.text.__contains__("notFound"):
+        if response.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            list = list.json()
-            return list
+        response = response.json()
+        return response
 
+    @staticmethod
     def blockdomain(domain, config, header):
         data = {"id": domain, "active": True}
         put = requests.post(
@@ -732,6 +762,7 @@ class denylist:
         else:
             return put.text
 
+    @staticmethod
     def unblockdomain(domain, config, header):
         delete = requests.delete(
             f"https://api.nextdns.io/profiles/{config}/denylist/{domain}",
@@ -744,6 +775,8 @@ class denylist:
 
 
 class allowlist:
+    @staticmethod
+    # TODO: Change the method name from `list` to something different
     def list(config, header):
         settings = requests.get(
             f"https://api.nextdns.io/profiles/{config}/allowlist", headers=header
@@ -753,6 +786,7 @@ class allowlist:
         else:
             return settings.json()
 
+    @staticmethod
     def add(domain, config, header):
         data = {"id": domain, "active": True}
         put = requests.post(
@@ -765,6 +799,7 @@ class allowlist:
         else:
             return put.text
 
+    @staticmethod
     def remove(domain, config, header):
         delete = requests.delete(
             f"https://api.nextdns.io/profiles/{config}/allowlist/{domain}",
@@ -777,16 +812,17 @@ class allowlist:
 
 
 class analytics:
+    @staticmethod
     def counter(config, header):
         count = requests.get(
             f"https://api.nextdns.io/profiles/{config}/analytics/status", headers=header
         )
         if count.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            count = count.json()
-            return count
+        count = count.json()
+        return count
 
+    @staticmethod
     def topresolveddomains(config, header):
         top = requests.get(
             f"https://api.nextdns.io/profiles/{config}/analytics/domains?status=default",
@@ -794,10 +830,10 @@ class analytics:
         )
         if top.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            top = top.json()
-            return top
+        top = top.json()
+        return top
 
+    @staticmethod
     def topblockeddomains(config, header):
         top = requests.get(
             f"https://api.nextdns.io/profiles/{config}/analytics/domains?status=blocked",
@@ -805,10 +841,10 @@ class analytics:
         )
         if top.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            top = top.json()
-            return top
+        top = top.json()
+        return top
 
+    @staticmethod
     def topalloweddomains(config, header):
         top = requests.get(
             f"https://api.nextdns.io/profiles/{config}/analytics/domains?status=allowed",
@@ -816,10 +852,10 @@ class analytics:
         )
         if top.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            top = top.json()
-            return top
+        top = top.json()
+        return top
 
+    @staticmethod
     def topdevices(config, header):
         top = requests.get(
             f"https://api.nextdns.io/profiles/{config}/analytics/devices",
@@ -827,20 +863,20 @@ class analytics:
         )
         if top.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            top = top.json()
-            return top
+        top = top.json()
+        return top
 
+    @staticmethod
     def topclientips(config, header):
         top = requests.get(
             f"https://api.nextdns.io/profiles/{config}/analytics/ips", headers=header
         )
         if top.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            top = top.json()
-            return top
+        top = top.json()
+        return top
 
+    @staticmethod
     def toprootdomains(config, header):
         top = requests.get(
             f"https://api.nextdns.io/profiles/{config}/analytics/domains?root=true",
@@ -848,10 +884,10 @@ class analytics:
         )
         if top.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            top = top.json()
-            return top
+        top = top.json()
+        return top
 
+    @staticmethod
     def gafam(config, header):
         gafam = requests.get(
             f"https://api.nextdns.io/profiles/{config}/analytics/destinations?type=gafam",
@@ -860,9 +896,9 @@ class analytics:
         if gafam.text.__contains__("notFound"):
             raise ConfigNotFound(config)
         else:
-            top = gafam.json()
-            return top
+            return gafam.json()
 
+    @staticmethod
     def trafficdest(config, header):
         top = requests.get(
             f"https://api.nextdns.io/profiles/{config}/analytics/destinations?type=countries",
@@ -870,6 +906,5 @@ class analytics:
         )
         if top.text.__contains__("notFound"):
             raise ConfigNotFound(config)
-        else:
-            top = top.json()
-            return top
+        top = top.json()
+        return top
