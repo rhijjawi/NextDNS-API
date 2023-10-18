@@ -55,18 +55,18 @@ blocksites = [
 ]
 
 headers = {
-    """Accept""": """application/json, text/plain, */*""",
-    """Accept-Language""": """en-US,en;q=0.5""",
-    """Content-Type""": """application/json""",
-    """Origin""": """https://my.nextdns.io""",
-    """DNT""": """1""",
-    """Connection""": """keep-alive""",
-    """Referer""": """https://my.nextdns.io/""",
-    """Sec-Fetch-Dest""": """empty""",
-    """Sec-Fetch-Mode""": """cors""",
-    """Sec-Fetch-Site""": """same-site""",
-    """Sec-GPC""": """1""",
-    """TE""": """trailers""",
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "en-US,en;q=0.5",
+    "Content-Type": "application/json",
+    "Origin": "https://my.nextdns.io",
+    "DNT": "1",
+    "Connection": "keep-alive",
+    "Referer": "https://my.nextdns.io/",
+    "Sec-Fetch-Dest": "empty",
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-site",
+    "Sec-GPC": "1",
+    "TE": "trailers",
 }
 
 
